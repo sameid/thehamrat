@@ -31,6 +31,21 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+        .cursor {
+            position: absolute;
+            z-index: 100;
+            width: 400px;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 200px;
+        }
+        .cursor-img {
+            position: absolute;
+            top: -400px;
+            left: -600px;
+        }
+    </style>
 
 </head>
 
@@ -218,6 +233,10 @@
         </div>
     </section>
 
+    <div class="cursor">
+        <img src="img/portfolio/thumbnails/6.jpg" class="cursor-img"/>
+    </div>
+
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
 
@@ -231,6 +250,16 @@
 
     <!-- Theme JavaScript -->
     <script src="js/creative.min.js"></script>
+    <script>
+        $(function(){
+            $("body").mousemove(function(event) {
+                $('.cursor').css({
+                    top: event.pageY + 50,
+                    left: event.pageX -200
+                });
+            });
+        });
+    </script>
 
 </body>
 
