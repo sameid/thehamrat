@@ -51,6 +51,11 @@
 
 <body id="page-top">
 
+    <img src="img/portfolio/fullsize/8.png" width="20%" style="position: fixed; z-index: 1001; left: 50px;" class="i">
+    <img src="img/portfolio/fullsize/9.png" width="20%" style="position: fixed; z-index: 1001;" class="i i-2">
+    <img src="img/portfolio/fullsize/10.png" width="20%" style="position: fixed; z-index: 1001;" class="i i-3">
+
+
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -109,8 +114,10 @@
 
     <section class="no-padding">
         <center>
-        <img style="padding: 10px;" src="img/portfolio/fullsize/7.jpg" />
-    </center>
+            <div style="width: 750px; overflow: hidden;">
+                <img style="padding: 10px;" src="img/portfolio/fullsize/7.jpg" />
+            </div>
+        </center>
     </section>
 
     <section class="no-padding" id="portfolio">
@@ -258,6 +265,43 @@
     <script src="js/creative.min.js"></script>
     <script>
         $(function(){
+
+            var $window = $(window);
+            var $images = $('.i');
+            $images.css({
+                top: $window.height()
+            });
+
+            $('.i-2').css({
+                left: $window.width() - $('.i-2').width() - 50
+            });
+
+            $('.i-3').css({
+                left: $window.width() / 2 - $('.i-3').width() / 2
+            });
+
+            var iScrollPos = 0;
+            var properTop = 0;
+            $window.scroll(function () {
+                var top = $window.scrollTop();
+                var iCurScrollPos = $(this).scrollTop();
+
+                if (top < $images.height()){
+                    properTop = $window.scrollTop();
+                }
+
+                if (iCurScrollPos > iScrollPos) {
+                    $images.css({
+                        top: $window.height() - properTop
+                    })
+                } else {
+                    $images.css({
+                        top: $window.height() - properTop
+                    })
+                }
+                iScrollPos = iCurScrollPos;
+            });
+
             $("body").mousemove(function(event) {
                 $('.cursor').css({
                     top: event.pageY + 50,
