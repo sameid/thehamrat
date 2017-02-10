@@ -45,13 +45,61 @@
             top: -400px;
             left: -600px;
         }
+
+        @-webkit-keyframes dance {
+            0%   {left: 0px;}
+            25%  {left: 400px;}
+            50%  {left: 800px;}
+            75%  {left: 400px;}
+            100% {left: 0px;}
+        }
+
+        @keyframes dance {
+            0%   {left: 0px;}
+            25%  {left: 400px;}
+            50%  {left: 800px;}
+            75%  {left: 400px;}
+            100% {left: 0px;}
+        }
+
+        @-webkit-keyframes dancereverse{
+            0%   {left: 80%;}
+            25%  {left: 60%;}
+            50%  {left: 40%;}
+            75%  {left: 60%;}
+            100% {left: 80%;}
+        }
+
+        @keyframes dancereverse {
+            0%   {left: 80%;}
+            25%  {left: 60%;}
+            50%  {left: 40%;}
+            75%  {left: 60%;}
+            100% {left: 80%;}
+        }
+
+        .i-1 {
+            -webkit-animation-name: dance; /* Safari 4.0 - 8.0 */
+            -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+            animation-name: dance;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+        }
+
+        .i-2 {
+            -webkit-animation-name: dancereverse; /* Safari 4.0 - 8.0 */
+            -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+            animation-name: dancereverse;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+        }
     </style>
 
 </head>
 
 <body id="page-top">
 
-    <img src="img/portfolio/fullsize/8.png" width="20%" style="position: fixed; z-index: 1001; left: 50px;" class="i">
+    <img src="img/portfolio/fullsize/8.png" width="20%" style="position: fixed; z-index: 1001; left: 50px; " class="i i-1">
     <img src="img/portfolio/fullsize/9.png" width="20%" style="position: fixed; z-index: 1001;" class="i i-2">
     <img src="img/portfolio/fullsize/10.png" width="20%" style="position: fixed; z-index: 1001;" class="i i-3">
 
@@ -104,6 +152,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
                     <h2 class="section-heading">Hire me bruh...</h2>
+                    <h2 class="section-heading">i think you've reached the <strong>pinnale</strong> of website</h2>
                     <hr class="light">
                     <p class="text-faded">Bro so im like an engineer, but my real profession is trollonomics. I troll to a fag degree. With precise accuracy.</p>
                     <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Check out some dope stuff below...</a>
