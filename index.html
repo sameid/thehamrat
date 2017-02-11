@@ -93,6 +93,19 @@
             animation-duration: 4s;
             animation-iteration-count: infinite;
         }
+
+        .ee1 {
+            position absolute;
+            z-index: 2000;
+            width: 100px;
+            height: 150px;
+            top: 0px;
+            left: 0px;
+        }
+
+        @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+        @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+        @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
     </style>
 
 </head>
@@ -101,7 +114,7 @@
 
     <img src="img/portfolio/fullsize/8.png" width="20%" style="position: fixed; z-index: 1001; left: 50px; " class="i i-1">
     <img src="img/portfolio/fullsize/9.png" width="20%" style="position: fixed; z-index: 1001;" class="i i-2">
-    <img src="img/portfolio/fullsize/10.png" width="20%" style="position: fixed; z-index: 1001;" class="i i-3">
+    <img src="img/portfolio/fullsize/10.png" width="20%" style="position: fixed; z-index: 1001;" class="i i-3 double">
 
 
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
@@ -111,7 +124,7 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">The HamRat</a>
+                <a class="navbar-brand page-scroll" href="#page-top" id="double">The HamRat</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -320,6 +333,26 @@
             $images.css({
                 top: $window.height()
             });
+
+            var dblfired = false;
+            var x = 0;
+            var y = 0;
+            $('#double').dblclick(function() {
+                if (!dblfired) {
+                    dblfired = true;
+                    setInterval(function() {
+                        if (x < $window.width()){
+                            x += 100;
+                        }  else {
+                            x = 0;
+                            y += 150;
+                        }
+                        $('#page-top').append('<img class="rotation" style="-webkit-animation:spin 4s linear infinite; -moz-animation:spin 4s linear infinite; animation:spin 4s linear infinite;position: absolute; z-index: 2000; width: 100px; height: 150px; top: ' + y + 'px; left: ' + x + 'px;" src="img/portfolio/fullsize/11.png" />');
+
+                    }, 100);
+                }
+            });
+
 
             $('.i-2').css({
                 left: $window.width() - $('.i-2').width() - 50
