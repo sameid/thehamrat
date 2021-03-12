@@ -1,0 +1,244 @@
+<html>
+<head>
+	<title></title>
+	<style>
+
+	#container {
+		margin: 0px auto;
+		width: 500px;
+		height: 375px;
+		border: 10px #333 solid;
+	}
+	#videoElement {
+		width: 500px;
+		height: 375px;
+		background-color: #666;
+	}
+
+
+	#canvas {
+		left: 0;
+		top: 0;
+		z-index: 99;
+	}
+
+	#buffer {
+		display: none;
+	}
+
+	#shazy {
+		display: none;
+	}
+
+	.cursor {
+		position: absolute;
+		z-index: 100;
+		width: 30px;
+		height: 30px;
+	}
+
+	.rocky {
+		display: none;
+	}
+
+	#videoElement {
+		display: none;
+	}
+
+	#s0 {
+		display: none;
+	}
+
+	#s1 {
+		display: none;
+	}
+
+	#s2 {
+		display: none;
+	}
+
+	#s3 {
+		display: none;
+	}
+
+	#s4 {
+		display: none;
+	}
+
+	#s5 {
+		display: none;
+	}
+
+	#s6 {
+		display: none;
+	}
+
+	#s7 {
+		display: none;
+	}
+
+	#s8 {
+		display: none;
+	}
+
+	#s9 {
+		display: none;
+	}
+
+	</style>
+</head>
+<body>
+<!--
+	<div class="rocky">ROCKY COCKY ERROR - This game is not compatible with trash ass browsers.</div>
+
+	<audio id="sound-actual">
+		<source src="run.mp3" type="audio/mpeg"></source>
+	</audio>
+-->
+
+	<img src="assets/4.png" class="cursor" />
+	<img id="s0" src="assets/0.png" />
+	<img id="s1" src="assets/1.png" />
+	<img id="s2" src="assets/2.png" />
+	<img id="s3" src="assets/3.png" />
+	<img id="s4" src="assets/4.png" />
+	<img id="s5" src="assets/5.png" />
+	<img id="s6" src="assets/6.png" />
+	<img id="s7" src="assets/7.png" />
+	<img id="s8" src="assets/8.png" />
+	<img id="s9" src="assets/9.png" />
+
+
+	<canvas id="canvas"></canvas>
+
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script>
+	$(function(){
+
+		alert("Scrub Warz! \n\nDeploy as many scrubs as you can by tapping or clicking! \n\nMake sure the little scrub doesn't get run over by moving your cursor or tapping in another spot!");
+
+		const WIDTH = window.innerWidth;
+		const HEIGHT = window.innerHeight;
+		let currentBuffer = null;
+		let previousBuffer = null;
+		let diffBuffer = null;
+		let pixels = [];
+
+		if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+			$(".rocky").css({display: "block"})
+			return;
+		}
+
+		let mouse = { x: 0, y: 0}
+		let played = false;
+
+		$("body").mousemove(function(event) {
+			mouse.x = event.pageX;
+			mouse.y = event.pageY;
+
+			$('.cursor').css({
+				top: event.pageY -15,
+				left: event.pageX -15
+			});
+		});
+
+		$("body").click(function (event) {
+			if (event.pageX > 200 && event.pageX < window.innerWidth - 200 && event.pageY > 200 && event.pageY < window.innerHeight - 200) {
+				createBall(event.pageX -50, event.pageY - 50);
+			}
+
+			if (!played) {
+				var audioActual = document.getElementById('sound-actual');
+				audioActual.play();
+				played = true;
+			}
+		})
+
+		// Actual game view
+		var canvas = document.getElementById("canvas");
+		canvas.width = WIDTH;
+		canvas.height = HEIGHT;
+		var ctx = canvas.getContext("2d");
+
+		var ballRadius = -50;
+		var x = canvas.width / 2;
+		var y = canvas.height / 2;
+		var dx = 1.5;
+		var dy = -1.5;
+
+		let angle = 0;
+
+		let ball = {
+			x: canvas.width / 2,
+			y: canvas.height / 2,
+			dx: 0.2,
+			dy: -0.2,
+			asset: 0
+		}
+
+		let balls = [ball];
+
+		function createBall(x, y) {
+			var dx = -1 * Math.cos(angle);
+			var dy = -1 * Math.sin(angle);
+
+			angle += 10;
+
+			let asset = Math.floor(Math.random() * 9);
+
+			console.log(asset);
+
+			let ball = {
+				x, y, dx, dy, new: true, asset
+			};
+
+			balls.push(ball);
+
+			setTimeout(function() {
+				ball.new = false
+			}, 2000)
+		}
+
+		function drawBalls() {
+			for (ball of balls) {
+				ctx.drawImage(document.getElementById(`s${ball.asset}`), ball.x, ball.y, 100, 100);
+			}
+		}
+
+		function draw() {
+
+
+
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			drawBalls();
+
+			for (ball of balls) {
+				if(ball.x + ball.dx > canvas.width - ballRadius || ball.x + ball.dx < ballRadius) {
+					ball.dx = - ball.dx;
+				}
+				if(ball.y + ball.dy > canvas.height - ballRadius || ball.y + ball.dy < ballRadius) {
+					ball.dy = - ball.dy;
+				}
+
+				ball.x += ball.dx;
+				ball.y += ball.dy;
+			}
+
+			checkCollision();
+
+		}
+
+		function checkCollision () {
+			for (ball of balls) {
+				if (!ball.new && mouse.x > ball.x && mouse.x < ball.x + 100 && mouse.y > ball.y && mouse.y < ball.y + 100) {
+					clearInterval(bhasturd);
+					alert("Oh no the little scrub got rekt! \n\nScrubs deployed: " + balls.length );	
+				}
+			}
+		}
+
+		let bhasturd = setInterval(draw, 1);
+	});
+	</script>
+</body>
+</html>
